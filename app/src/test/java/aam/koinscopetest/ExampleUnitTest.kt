@@ -74,7 +74,8 @@ class ExampleUnitTest {
         val testScope = koin.createTestScope()
         scopeManager.linkFrom(testScope)
 
-        koin.loadModules(listOf(testModule), true)
+        // Если нужно подменить definition на мок/фейк
+        // koin.loadModules(listOf(testModule), true)
 
         assert(scopeManager.isScopeActive())
         koin.checkModules()

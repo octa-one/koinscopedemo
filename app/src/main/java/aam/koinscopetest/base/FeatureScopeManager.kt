@@ -2,7 +2,6 @@ package aam.koinscopetest.base
 
 import aam.koinscopetest.market.di.CoreFeatureScope
 import aam.koinscopetest.market.di.FeatureScope
-import android.util.Log
 import androidx.annotation.CallSuper
 import org.koin.core.Koin
 import org.koin.core.qualifier.Qualifier
@@ -24,7 +23,7 @@ abstract class AbstractFeatureScopeManager<F : FeatureScope>(
 
     protected val childScopes = mutableSetOf<ScopeID>()
 
-    private fun getOrCreateScope(): Scope {
+    protected fun getOrCreateScope(): Scope {
         var featureScope = koin.getScopeOrNull(scopeId)
 
         if (featureScope == null) {
@@ -40,22 +39,22 @@ abstract class AbstractFeatureScopeManager<F : FeatureScope>(
         return featureScope
     }
 
-    open fun isScopeActive(): Boolean = childScopes.isNotEmpty()
-
-    @CallSuper
-    open fun linkFrom(childScope: Scope) {
-        if (childScope.id in childScopes) return
-        val featureScope = getOrCreateScope()
-        childScopes.add(childScope.id)
-        childScope.linkTo(featureScope)
-    }
+    abstract fun isScopeActive(): Boolean
+    abstract fun linkFrom(childScope: Scope)
 }
 
 private class FeatureScopeManager<F : FeatureScope> (koin: Koin, feature: F) :
     AbstractFeatureScopeManager<F>(koin, feature) {
 
+    override fun isScopeActive(): Boolean = childScopes.isNotEmpty()
+
     override fun linkFrom(childScope: Scope) {
-        super.linkFrom(childScope)
+        if (childScope.id in childScopes) return
+
+        val featureScope = getOrCreateScope()
+        childScopes.add(childScope.id)
+        childScope.linkTo(featureScope)
+
         childScope.registerCallback(object : ScopeCallback {
             override fun onScopeClose(scope: Scope) {
                 if (childScopes.remove(scope.id)) {
@@ -72,6 +71,12 @@ private class CoreFeatureScopeManager<F : FeatureScope>(koin: Koin, feature: F) 
     AbstractFeatureScopeManager<F>(koin, feature) {
 
     override fun isScopeActive(): Boolean = true
+
+    override fun linkFrom(childScope: Scope) {
+        val featureScope = getOrCreateScope()
+        childScopes.add(childScope.id)
+        childScope.linkTo(featureScope)
+    }
 }
 
 fun <F : FeatureScope> Koin.getFeatureScopeManager(feature: F): AbstractFeatureScopeManager<F> {
