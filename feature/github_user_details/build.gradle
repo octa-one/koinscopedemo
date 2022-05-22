@@ -1,0 +1,41 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidLib
+apply plugin: Dependencies.Plugin.kotlinAndroid
+apply plugin: Dependencies.Plugin.kotlinParcelize
+
+dependencies {
+    implementation(
+            project(':androidUtil'),
+            project(':base'),
+            project(':core:scheduler-api'),
+            project(':core:coreui'),
+            project(':core:di-android'),
+            project(':feature:github-core-api'),
+            project(':design'),
+            project(':navigation'),
+            project(':util')
+    )
+    implementation(
+            Dependencies.AndroidX.appCompat,
+            Dependencies.AndroidX.coreKtx,
+            Dependencies.AndroidX.fragmentKtx,
+            Dependencies.AndroidX.navigation,
+            Dependencies.AndroidX.navigationUi,
+            Dependencies.Di.koin,
+            Dependencies.Di.koinAndroid,
+            Dependencies.Lib.glide,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Lib.timber,
+            Dependencies.Network.retrofit,
+            Dependencies.Network.retrofitMoshi,
+            Dependencies.Network.retrofitRx,
+            Dependencies.Rx.autoDispose,
+            Dependencies.Rx.autoDisposeAndroidAC,
+            Dependencies.Rx.rx,
+            Dependencies.Rx.rxAndroid,
+            Dependencies.Rx.rxBinding,
+            Dependencies.Rx.rxBindingCore,
+            Dependencies.View.constraintLayout
+    )
+}

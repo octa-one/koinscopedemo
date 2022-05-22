@@ -1,27 +1,93 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import com.orcchg.direcall.build.Dependencies
+import com.orcchg.direcall.build.Versions
+
 buildscript {
-    ext.kotlin_version = "1.5.20"
+    ext {
+        kotlin_version = '1.6.21'
+    }
     repositories {
         google()
-        mavenCentral()
+        jcenter()
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.1"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath(
+            Dependencies.AndroidX.navigationSafeArgs,
+            Dependencies.Gradle.androidGradle,
+            Dependencies.Gradle.ktGradle
+        )
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.ktStdLib}"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktlintGradle}"
     }
 }
 
 allprojects {
+    apply plugin: Dependencies.Plugin.ktlint
+
     repositories {
         google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        jcenter()
+    }
+
+    ext {
+        androidVersionName = "1.0.0"
+        androidVersionCode = 1
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testApplicationId = 'com.orcchg.direcall.test'
+    }
+
+    ktlint {
+        version = Versions.ktlint
+        outputToConsole = true
+        outputColorName = "RED"
+        ignoreFailures = false
+        enableExperimentalRules = false
+        disabledRules = ["final-newline", "import-ordering", "parameter-list-wrapping", "indent"]
+        filter {
+            exclude("**/generated/**")
+            exclude("**/script/**")
+            include("**/kotlin/**")
+        }
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+subprojects {
+    afterEvaluate { p ->
+        if (p.hasProperty('android')) {
+            android {
+                defaultConfig {
+                    minSdkVersion Versions.minSdkVersion
+                    targetSdkVersion Versions.targetSdkVersion
+                    compileSdkVersion Versions.compileSdkVersion
+
+                    versionCode rootProject.ext.androidVersionCode
+                    versionName rootProject.ext.androidVersionName
+                    testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+                }
+
+                buildFeatures {
+                    buildConfig true
+                    viewBinding true
+                }
+
+                buildTypes {
+                    release {
+                        minifyEnabled false
+                        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                    }
+                }
+
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+
+                kotlinOptions {
+                    jvmTarget = JavaVersion.VERSION_1_8
+                    freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+                }
+            }
+        }
+    }
 }

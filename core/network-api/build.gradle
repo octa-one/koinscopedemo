@@ -1,0 +1,14 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.kotlin
+
+dependencies {
+    implementation(
+            project(':core:di')
+    )
+    implementation(
+            Dependencies.Di.koin,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Network.retrofit,
+    )
+}

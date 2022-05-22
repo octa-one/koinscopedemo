@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">KoinScopeTest</string>
+    <string name="app_name">DiRecall</string>
+    <string name="repo_name">Repo</string>
 </resources>

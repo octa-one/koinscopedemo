@@ -1,0 +1,46 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.dynamicFeature
+apply plugin: Dependencies.Plugin.kotlinAndroid
+apply plugin: Dependencies.Plugin.kotlinParcelize
+
+dependencies {
+    implementation(
+            project(':app'),
+            project(':androidUtil'),
+            project(':base'),
+            project(':core:coreui'),
+            project(':core:di-android'),
+            project(':core:scheduler-api'),
+            project(':design'),
+            project(':feature:github-core-api'),
+            project(':navigation'),
+            project(':util')
+    )
+    implementation(
+            Dependencies.AndroidX.appCompat,
+            Dependencies.AndroidX.coreKtx,
+            Dependencies.AndroidX.fragmentKtx,
+            Dependencies.AndroidX.navigation,
+            Dependencies.AndroidX.navigationUi,
+            Dependencies.Di.koin,
+            Dependencies.Di.koinAndroid,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Lib.timber,
+            Dependencies.Network.retrofit,
+            Dependencies.Network.retrofitMoshi,
+            Dependencies.Network.retrofitRx,
+            Dependencies.Rx.autoDispose,
+            Dependencies.Rx.autoDisposeAndroidAC,
+            Dependencies.Rx.rx,
+            Dependencies.Rx.rxAndroid,
+            Dependencies.Rx.rxBinding,
+            Dependencies.Rx.rxBindingCore,
+            Dependencies.View.constraintLayout,
+            Dependencies.View.recyclerView
+    )
+    testImplementation(
+            project(':app-test'),
+            Dependencies.Test.junit
+    )
+}

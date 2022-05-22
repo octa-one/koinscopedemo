@@ -1,0 +1,22 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidLib
+apply plugin: Dependencies.Plugin.kotlinAndroid
+
+dependencies {
+    implementation(
+            project(':core:di'),
+            project(':core:di-android'),
+            project(':core:network-api'),
+            project(':feature:github_user_details'),
+            project(':feature:github_user_list')
+    )
+    implementation(
+            Dependencies.Di.koin,
+            Dependencies.Di.koinAndroid,
+            Dependencies.Di.koinTest,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Network.okHttp,
+            Dependencies.Test.mockk
+    )
+}

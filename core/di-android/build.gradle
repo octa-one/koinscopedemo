@@ -1,0 +1,18 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidLib
+apply plugin: Dependencies.Plugin.kotlinAndroid
+
+dependencies {
+    api(
+            project(':core:di'),
+    )
+    implementation(
+            Dependencies.Di.koin,
+            Dependencies.Di.koinAndroid,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.AndroidX.appCompat,
+            Dependencies.AndroidX.fragmentKtx,
+            Dependencies.AndroidX.lifecycle,
+    )
+}

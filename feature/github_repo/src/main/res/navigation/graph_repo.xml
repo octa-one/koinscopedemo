@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/nav_graph_github_repo_list"
+    app:startDestination="@id/nav_fragment_github_repo_list">
+
+    <fragment
+        android:id="@id/nav_fragment_github_repo_list"
+        android:name="com.orcchg.direcall.github_repo.presentation.ui.GithubRepoFragment">
+
+        <argument
+            android:name="login"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
+</navigation>

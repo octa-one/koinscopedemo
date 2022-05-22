@@ -1,2 +1,21 @@
-rootProject.name = "KoinScopeTest"
+include ':androidUtil'
 include ':app'
+include ':app-test'
+include ':base'
+include ':core:di'
+include ':core:di-android'
+include ':core:network-api'
+include ':core:network'
+include ':core:scheduler-api'
+include ':core:scheduler'
+include ':core:coreui'
+include ':design'
+include ':feature:github-core-api'
+include ':feature:github-core'
+include ':feature:github_repo'
+include ':feature:github_user_details'
+include ':feature:github_user_list'
+include ':navigation'
+include ':util'
+
+rootProject.name = "KoinScopeDemo"

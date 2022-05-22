@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/nav_fragment_github_user_list">
+
+    <fragment
+        android:id="@id/nav_fragment_github_user_list"
+        android:name="com.orcchg.direcall.github_user_list.presentation.ui.GithubUserListFragment">
+
+        <action
+            android:id="@+id/nav_action_open_github_user_details"
+            app:destination="@id/nav_fragment_github_user_details" />
+    </fragment>
+
+    <fragment
+        android:id="@id/nav_fragment_github_user_details"
+        android:name="com.orcchg.direcall.github_user_details.presentation.ui.GithubUserDetailsFragment">
+
+        <argument
+            android:name="login"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <action
+            android:id="@+id/nav_action_open_github_repo_list"
+            app:destination="@id/nav_graph_github_repo_list">
+
+            <argument
+                android:name="login"
+                android:defaultValue=""
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <include-dynamic
+        android:id="@id/nav_graph_github_repo_list"
+        app:graphResName="graph_repo"
+        app:moduleName="github_repo" />
+
+</navigation>

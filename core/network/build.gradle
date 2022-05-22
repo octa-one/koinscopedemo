@@ -1,0 +1,26 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidLib
+apply plugin: Dependencies.Plugin.kotlinAndroid
+apply plugin: Dependencies.Plugin.kotlinAnnotation
+
+dependencies {
+    implementation(
+            project(':core:di-android'),
+            project(':core:network-api')
+    )
+    implementation(
+            Dependencies.Di.koin,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Network.okHttpLog,
+            Dependencies.Network.retrofit,
+            Dependencies.Network.retrofitMoshi,
+            Dependencies.Network.retrofitRx,
+            Dependencies.Parser.moshi,
+            Dependencies.Parser.moshiAdapters,
+            Dependencies.Parser.moshiKotlin
+    )
+    kapt(
+            Dependencies.Parser.moshiKotlinCodegen
+    )
+}

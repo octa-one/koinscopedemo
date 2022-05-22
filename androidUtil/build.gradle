@@ -1,0 +1,20 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidLib
+apply plugin: Dependencies.Plugin.kotlinAndroid
+apply plugin: Dependencies.Plugin.kotlinParcelize
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation(
+            project(':util')
+    )
+    implementation(
+            Dependencies.AndroidX.appCompat,
+            Dependencies.AndroidX.fragmentKtx,
+            Dependencies.AndroidX.liveData,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Rx.rx,
+            Dependencies.Rx.rxAndroid
+    )
+}

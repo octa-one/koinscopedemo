@@ -1,0 +1,15 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.kotlin
+apply plugin: Dependencies.Plugin.kotlinAnnotation
+
+dependencies {
+    implementation(
+            project(':core:di'),
+    )
+    implementation(
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Di.koin,
+            Dependencies.Rx.rx
+    )
+}

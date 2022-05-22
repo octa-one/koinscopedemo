@@ -1,60 +1,46 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidApp
+apply plugin: Dependencies.Plugin.kotlinAndroid
+apply plugin: Dependencies.Plugin.kotlinParcelize
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
     defaultConfig {
-        applicationId "aam.koinscopetest"
-        minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = 'com.orcchg.direcall'
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+    dynamicFeatures = [':feature:github_repo']
 }
 
 dependencies {
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.20"
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    implementation 'io.insert-koin:koin-android:3.1.1'
-
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.1'
-
-    implementation 'androidx.startup:startup-runtime:1.0.0'
-
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.5.20'
-
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'io.insert-koin:koin-test:3.1.1'
-    testImplementation 'io.insert-koin:koin-test-junit4:3.1.1'
-    testImplementation 'io.mockk:mockk:1.11.0'
-    testImplementation 'org.reflections:reflections:0.9.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation(
+            project(':core:di'),
+            project(':core:di-android'),
+            project(':core:network'),
+            project(':core:network-api'),
+            project(':core:scheduler'),
+            project(':core:scheduler-api',),
+            project(':feature:github-core'),
+            project(':feature:github-core-api'),
+            project(':feature:github_user_details'),
+            project(':feature:github_user_list'),
+            project(':navigation'),
+            project(':design'),
+    )
+    implementation(
+            Dependencies.AndroidX.appCompat,
+            Dependencies.AndroidX.coreKtx,
+            Dependencies.AndroidX.navigation,
+            Dependencies.AndroidX.navigationUi,
+            Dependencies.AndroidX.navigationDynamic,
+            Dependencies.Di.koin,
+            Dependencies.Di.koinAndroid,
+            Dependencies.Lib.ktStdLib,
+            Dependencies.Lib.timber,
+            Dependencies.View.constraintLayout
+    )
+    testImplementation(
+            project(':app-test'),
+            Dependencies.Test.junit
+    )
 }

@@ -1,0 +1,15 @@
+import com.orcchg.direcall.build.Dependencies
+
+apply plugin: Dependencies.Plugin.androidLib
+apply plugin: Dependencies.Plugin.kotlinAndroid
+apply plugin: Dependencies.Plugin.kotlinParcelize
+apply plugin: Dependencies.Plugin.navSafeArgs
+
+dependencies {
+    implementation(
+            Dependencies.AndroidX.appCompat,
+            Dependencies.AndroidX.navigation,
+            Dependencies.AndroidX.navigationUi,
+            Dependencies.Lib.ktStdLib
+    )
+}
